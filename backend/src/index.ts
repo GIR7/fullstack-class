@@ -1,10 +1,77 @@
 
-//import * as dotdev from "dotenv";//not working
-const dotdev = require("dotenv");
+import  fs from "fs/promises";
+import  dotdev from "dotenv";
 dotdev.config();
 
-//import http from "http" //this would have err message:SyntaxError: Cannot use import statement outside a module
-const http = require("http");
+import http, {Server} from "http";
+import path from "path";
+
+import { fileURLToPath } from 'url';
+import {Nastify} from "./server.js";
+import ErrnoException = NodeJS.ErrnoException;
+
+//Week2 Wednesday's lecture:
+
+//2nd part: testing our own Nastify
+let testapp = Nastify();
+testapp.listen(7777,()=>{
+	console.log("This is Nastify sever, listening on port 7777");
+})
+//check done, works
+
+
+
+//1ST part of lecture
+
+// ES Modules argh https://flaviocopes.com/fix-dirname-not-defined-es-module-scope/
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const server: Server = http.createServer(async (req,res)=>{
+	//navigate this file's path to index.html 's path
+	//this is for "fs
+	// fs.readFile(path.resolve(__dirname,"..","public","index.html"),(err,data:Buffer)=>{
+	// 	res.setHeader('Content-type','text/html');
+	// 	if(err){
+	// 		console.log(err);
+	// 		res.writehead(200);
+	// 		return res.end('File read error : ');
+	// 	}
+	// 	res.writeHead(200);
+	// 	return res.end(data);
+	// })
+	
+	//this is for "fs/promises"
+	let haserr = false; //(bad way )fix the return
+	const indexFile = await fs.readFile(path.resolve(__dirname,'..', 'public', 'index.html'))
+	// 	.catch( err =>  {
+	// 		console.error(err);
+	// 		//send error result - 500!
+	// 		res.setHeader('Content-Type', 'text/html');
+	// 		res.writeHead(500);
+	// 		//this return is only for 'catch' block, not the whole func,
+	// 		return res.end(JSON.stringify(err));//we can only returns to client a str,err is JS obj
+	// 	});
+	// res.setHeader("Content-Type",'text/html');
+	// res.writeHead(200);
+	// return res.end(indexFile);
+		.catch( err =>  {
+			console.error(err);
+			//send error result - 500!
+			res.setHeader('Content-Type', 'text/html');
+			res.writeHead(500);
+			haserr = true;
+			return err;
+			
+		});
+	if(!haserr){
+		res.setHeader("Content-Type",'text/html');
+		res.writeHead(200);
+		return res.end(indexFile);
+	}else {
+		return res.end(JSON.stringify(indexFile));//we can only returns to client a str,err is JS obj
+	}
+})
 
 
 
@@ -111,13 +178,13 @@ checkDb();
 
 
 //old, need to using callback
-const server = http.createServer((req,res)=>{
-	console.log("I got the request from a client..")
-	//res: things you are sending back to client as a server
-	res.writeHead(200,{"Content-Type":"text/html"})
-	res.write("Hello World! I got your request, this is my response");
-	res.end();
-})
+// const server = http.createServer((req,res)=>{
+// 	console.log("I got the request from a client..")
+// 	//res: things you are sending back to client as a server
+// 	res.writeHead(200,{"Content-Type":"text/html"})
+// 	res.write("Hello World! I got your request, this is my response");
+// 	res.end();
+// })
 
 server.listen(process.env.BACKEND_PORT,()=>{
 	console.log("Server listening on port 8080... ")
