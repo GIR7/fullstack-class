@@ -1,4 +1,4 @@
-//Week2 Wed, 2nd part:
+//Week2 Wednesday, 2nd part:
 
 //could adding new features, or overwrite the old one
 

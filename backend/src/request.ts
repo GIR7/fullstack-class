@@ -1,4 +1,4 @@
-//Week2 Wed, 2nd part:
+//Week2 Wednesday, 2nd part:
 
 import url from "url";
 

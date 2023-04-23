@@ -11,7 +11,6 @@ import {Nastify} from "./server.js";
 import ErrnoException = NodeJS.ErrnoException;
 
 //Week2 Wednesday's lecture:
-
 //2nd part: testing our own Nastify
 let testapp = Nastify();
 testapp.listen(7777,()=>{
