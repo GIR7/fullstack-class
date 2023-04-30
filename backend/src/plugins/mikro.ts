@@ -6,6 +6,7 @@ import fp from "fastify-plugin";
 
 // A type that represents deeply nested structure (A value inside a promise) and extracts (safely) the inner value
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-1.html#recursive-conditional-types
+
 export type Awaited<T> = T extends PromiseLike<infer U> ? Awaited<U> : T;
 
 type FastifyMikroOrmOptions = {
