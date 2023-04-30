@@ -6,7 +6,7 @@ import app from '../src/app.js';
 
 teardown(()=>app.close());
 
-test("requset the hekkorout:,",async  ()=>{
+test("requset the hello:,",async  ()=>{
 	const res=await  app.inject({
 		method:'GET',
 		url:"/hello"
