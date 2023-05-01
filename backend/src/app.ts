@@ -18,5 +18,4 @@ await app.register(FastifySearchHttpMethodPlugin);
 await app.register(doggrRoutes);
 
 
-
 export default app;

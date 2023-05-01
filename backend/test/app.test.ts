@@ -46,3 +46,4 @@ test("create a new user ", async ()=>{
 	resPayload.email.should.equal(payload.email);
 	resPayload.petType.should.equal("Dog");
 })
+

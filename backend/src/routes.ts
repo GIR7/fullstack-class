@@ -84,19 +84,13 @@ async function doggrRoutes(app: FastifyInstance,_options={} ){
 	//R: find a user
 	app.search("/users",async (req,res)=>{
 		//get the email we want to find from request(user)
-		console.log("BODY: ",req.body);
 		const { email } = req.body;
-		
-		console.log("var: ", { email });
-		
+
 		try{
-			// const findUser = await req.em.findOne(User, { email: 'spot@email.com' })
 			const findUser = await req.em.findOne(User, { email })
-			console.log("enter try block");
 			console.log(findUser);
 			res.send(findUser);
 		} catch (e) {
-			console.log("enter catch block");
 			console.error(e);
 			res.status(500).send(e);
 		}

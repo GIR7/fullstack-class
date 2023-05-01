@@ -23,6 +23,8 @@ const fastifySearchHttpMethod = async function (app:FastifyInstance,options){
 	app.decorate("search",search);
 };
 
+
 export const FastifySearchHttpMethodPlugin = fp(fastifySearchHttpMethod,{
 	name:"fastify-search-http-method"
 })
+
