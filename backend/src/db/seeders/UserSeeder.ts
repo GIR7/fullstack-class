@@ -11,6 +11,24 @@ export class UserSeeder extends Seeder {
       email:"spot@email.com",
       petType:"Cat"
     })
-  }
 
+    em.create(User,{
+      name: "Adam",
+      email:"Adam@email.com",
+      petType:"Cat"
+    })
+
+    em.create(User,{
+      name: "Hammer",
+      email:"Hammer@email.com",
+      petType:"Cat"
+    })
+
+    em.create(User,{
+      name: "Ady",
+      email:"Ady@email.com",
+      petType:"dog"
+    })
+
+  }
 }
