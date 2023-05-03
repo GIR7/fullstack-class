@@ -1,7 +1,7 @@
 import { PrimaryKey, Property } from "@mikro-orm/core";
 
 export class BaseEntity {
-  @PrimaryKey()
+	@PrimaryKey()
 	id!: number;
 	
 	@Property()

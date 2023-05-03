@@ -1,4 +1,4 @@
-import app from "./app.js";
+// import app from "./app.js";
 import {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
 import {User} from "./db/entities/User.js";
 import { Match } from "./db/entities/Match.js";
@@ -144,16 +144,20 @@ async function doggrRoutes(app: FastifyInstance,_options={} ){
 	app.post<{Body:{ email:string, matchee_email:string }}>
 	("/match",async (req,res)=>{
 
+		console.log("body :",req.body);
+
 		//extracts data from request body
 		const {email,matchee_email}=req.body;
-
+		console.log("{email:matchee_email}: ",{email:matchee_email});
+		console.log("{email}: ",{email});
 		try {
 			//make sure matchee exists & get their user account
-			const matchee = await req.em.findOne(User, {email: matchee_email});
+			const matchee = await req.em.findOne(User, {email:matchee_email});
+			console.log("matchee: ",matchee)
 			//same for owner(matcher)
 			const owner = await req.em.findOne(User, {email});
-
-
+			
+			console.log("owner: ",owner)
 			//create a new match between them
 			const newMatch = await req.em.create(Match, {
 				owner,

@@ -1,8 +1,4 @@
 import dotenv from "dotenv";
-import Fastify, {FastifyReply, FastifyRequest} from "fastify";
-import {User} from "./db/entities/User.js";
-import config from "./db/mikro-orm.config.js";
-import {FastifyMikroOrmPlugin} from "./plugins/mikro.js";
 import app from "./app.js"
 dotenv.config();
 
