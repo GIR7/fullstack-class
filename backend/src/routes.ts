@@ -1,8 +1,7 @@
-// import app from "./app.js";
 import {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
 import {User} from "./db/entities/User.js";
 import { Match } from "./db/entities/Match.js";
-
+import {ICreateUsersBody} from "./types.js";
 
 
 //taking the "app", adding the routes
@@ -26,13 +25,14 @@ async function doggrRoutes(app: FastifyInstance,_options={} ){
 	
 	//C: sending data to sever,create a new user
 	app.post
-	<{//explicitly tell fastify that req.body has 3 field and their type : our own version of FasityRequest
-		Body:{
-			name:string,
-			email:string,
-			petType:string
-		}
-	}>
+	// <{//explicitly tell fastify that req.body has 3 field and their type : our own version of FasityRequest
+	// 	Body:{
+	// 		name:string,
+	// 		email:string,
+	// 		petType:string
+	// 	}
+	// }>
+	<{Body: ICreateUsersBody}>
 	("/users",async (req , res)=>{
 		
 		//extract 3 fileds from request, get the info that user send in
@@ -98,13 +98,16 @@ async function doggrRoutes(app: FastifyInstance,_options={} ){
 	})
 	
 	//Update: change sth are already there
-	app.put<{
-		Body:{
-			name:string,
-			email:string,
-			petType:string
-		}
-	}>("/users",async(req,res)=>{
+	app.put
+	// <{
+	// 	Body:{
+	// 		name:string,
+	// 		email:string,
+	// 		petType:string
+	// 	}
+	// }>
+	<{Body: ICreateUsersBody}>
+	("/users",async(req,res)=>{
 		const {name, email,petType} = req.body;
 		
 		try {
@@ -123,7 +126,7 @@ async function doggrRoutes(app: FastifyInstance,_options={} ){
 	})
 	
 	//Delete
-	app.delete<{ Body:{email:string} }>
+	app.delete<{ Body: {email}}>
 	("/users",async (req,res)=>{
 		const { email } = await req.body;
 		

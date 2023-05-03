@@ -1,5 +1,4 @@
-import Fastify, {FastifyReply, FastifyRequest} from "fastify";
-import {User} from "./db/entities/User.js";
+import Fastify from "fastify";
 import config from "./db/mikro-orm.config.js";
 import {FastifySearchHttpMethodPlugin} from "./plugins/http_search.js";
 import {FastifyMikroOrmPlugin} from "./plugins/mikro.js";

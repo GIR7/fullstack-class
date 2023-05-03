@@ -1,4 +1,3 @@
-
 import { Entity, Property, Unique, ManyToOne } from "@mikro-orm/core";
 import { BaseEntity } from "./BaseEntity.js";
 import { User } from "./User.js";
@@ -12,7 +11,6 @@ export class Match {
 	// the person who performed the swiped right
 	@ManyToOne({primary: true})
 	owner!: User;
-	
 	
 	//one user can be matched with many others
     //the account was swiped right on
