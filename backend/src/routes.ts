@@ -6,7 +6,12 @@ import {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
 import { Match } from "./db/entities/Match.js";
 import {User} from "./db/entities/User.js";
 
-
+/** This function adds all the backend routes for the site.
+ *
+ * @param {FastifyInstance} app - The base Fastify listen server instance
+ * @param {{}}_options - Fastify instance options (optional)
+ * @returns {Promise<void>} - returns all of the initialized routes
+ */
 
 //taking the "app", adding the routes
 async function doggrRoutes(app: FastifyInstance,_options={} ){
