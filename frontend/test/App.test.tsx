@@ -1,12 +1,9 @@
+//@ts-nocheck
 
-import { expect, test } from "vitest";
+// import { expect, test } from "vitest";
 
 // import dependencies
 import React from 'react'
-
-// import API mocking utilities from Mock Service Worker
-import {rest} from 'msw'
-import {setupServer} from 'msw/node'
 
 // import react-testing methods
 import {render, fireEvent, screen} from '@testing-library/react'
@@ -19,7 +16,7 @@ import {App} from "../src/App.js"
 
 test('click and counts', async () => {
 	// Arrange: rendering our page into a var
-	let testRender = render(<App  />)
+	const testRender = render(<App  />)
 	// Act
 	fireEvent.click(screen.getByText('count is 0'))
 	// Assert
@@ -29,7 +26,7 @@ test('click and counts', async () => {
 describe("Renders React components correctly",async ()=>{
 	it("should render the page correctly", async ()=>{
 
-		let testrender = render(<App />)
+		const testrender = render(<App />)
 		//setup
 		const h1 = await screen.queryByText("Vite + React");
 
