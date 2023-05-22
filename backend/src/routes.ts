@@ -27,7 +27,16 @@ async function doggrRoutes(app: FastifyInstance,_options={} ){
 	app.get("/dbTest", async (request: FastifyRequest, reply: FastifyReply) => {
 		return request.em.find(User, {});
 	});
-
+	
+	// returns all users for frontend
+	app.get("/users", async (req, reply) => {
+		try {
+			const theUser = await req.em.find(User, {});
+			reply.send(theUser);
+		} catch (err) {
+			reply.status(500).send(err);
+		}
+	});
 
 
 	//CRUD
