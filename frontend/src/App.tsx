@@ -1,9 +1,8 @@
-import { useState } from 'react'
-import reactLogo from '@images/react.svg'
-import viteLogo from '/vite.svg'
-import '@css/App.css'
-import {Home,Match,Button,UsersList} from "./Components";
+import { Home } from "@/Components/HomePage.tsx";
+import { Match } from "@/Components/Match.tsx";
 import { Link, Route, Routes, Router, BrowserRouter } from "react-router-dom";
+import "@css/App.css";
+
 
 export function App() {
  return (
@@ -15,7 +14,7 @@ export function App() {
          <Link to="/match">Match</Link>
        </div>
      </nav>
-     <UsersList/>
+
      <Routes>
        <Route path="/" element={<Home />} />
        <Route path="/match" element={<Match />} />
