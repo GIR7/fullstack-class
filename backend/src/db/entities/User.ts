@@ -12,6 +12,9 @@ export class User extends BaseEntity {
 	name!: string;
 	
 	@Property()
+	password!: string;
+	
+	@Property()
 	petType!: string;
 
 	//These do NOT exist in the db itself, these fields are derived fields.
