@@ -1,6 +1,6 @@
 import type { EntityManager,Dictionary } from '@mikro-orm/core';
 import { Seeder } from '@mikro-orm/seeder';
-import {User} from "../entities/User.js";
+import {User,UserRole} from "../entities/User.js";
 import bcrypt from "bcrypt";
 
 
@@ -16,7 +16,8 @@ export class UserSeeder extends Seeder {
       name: "Spot",
       email: "email@email.com",
       password: hashedPw,
-      petType: "Dog"
+      petType: "Dog",
+        role: UserRole.ADMIN,
     });
     
      context.user2=
@@ -24,14 +25,16 @@ export class UserSeeder extends Seeder {
       name: "Dogbert",
       email: "email2@email.com",
       password: hashedPw,
-      petType: "Dog"
+      petType: "Dog",
+        role: UserRole.USER,
     });
      context.user3=
       em.create(User, {
       name: "Doglord",
       email: "email3@email.com",
       password: hashedPw,
-      petType: "Dog"
+      petType: "Dog",
+        role: UserRole.USER,
     });
     
     context.user4=
@@ -39,7 +42,8 @@ export class UserSeeder extends Seeder {
       name: "NotaDog",
       email: "email4@email.com",
       password: hashedPw,
-      petType: "Cat"
+      petType: "Cat",
+        role: UserRole.USER,
     });
   }
 

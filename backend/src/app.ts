@@ -3,7 +3,7 @@ import config from "./db/mikro-orm.config.js";
 import {FastifySearchHttpMethodPlugin} from "./plugins/http_search.js";
 import { FastifyBadWordsPlugin } from "./plugins/badwords.js";
 import {FastifyMikroOrmPlugin} from "./plugins/mikro.js";
-import doggrRoutes from "./routes.js";
+import doggrRoutes from "./routes/routes.js";
 // import cors from '@fastify/cors'
 
 // 3 different NODE ENV levels that we allow our application to have
@@ -42,7 +42,7 @@ const app = Fastify({
 await app.register(FastifyMikroOrmPlugin, config);
 
 //add the search method plugin
-await app.register(FastifySearchHttpMethodPlugin);
+await app.register(FastifySearchHttpMethodPlugin,{});
 
 await app.register(FastifyBadWordsPlugin);
 
