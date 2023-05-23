@@ -1,7 +1,12 @@
 import { Entity, Property, Unique, OneToMany, Collection, Cascade } from "@mikro-orm/core";
 import { DoggrBaseEntity } from "./DoggrBaseEntity.js";
 import { Match } from "./Match.js";
+import { SoftDeletable } from "mikro-orm-soft-delete";
 
+
+// https://github.com/TheNightmareX/mikro-orm-soft-delete
+// Yes it's really that easy.
+@SoftDeletable(() => User, "deleted_at", () => new Date())
 @Entity({ tableName: "users"})
 export class User extends DoggrBaseEntity {
 	@Property()

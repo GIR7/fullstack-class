@@ -9,6 +9,7 @@ import { Match } from "./db/entities/Match.js";
 import {User} from "./db/entities/User.js";
 import { Message } from "./db/entities/Message.js";
 import { ICreateMessage, ICreateUsersBody, IUpdateUsersBody } from "./types.js";
+import { SOFT_DELETABLE_FILTER } from "mikro-orm-soft-delete";
 
 const adminPassword = process.env.password;
 /** This function adds all the backend routes for the site.
@@ -28,19 +29,32 @@ async function doggrRoutes(app: FastifyInstance,_options={} ) {
 		return 'Hilo';
 	});
 	
-	app.get("/dbTest", async (request: FastifyRequest, reply: FastifyReply) => {
-		return request.em.find(User, {});
+	// Route that returns all users, soft deleted and not
+	app.get("/dbTest", async (request: FastifyRequest, _reply: FastifyReply) => {
+		return request.em.find(User, {}, { filters: { [SOFT_DELETABLE_FILTER]: false } });
 	});
 	
-	// returns all users for frontend
+	// Route that returns all users who ARE NOT SOFT DELETED
 	app.get("/users", async (req, reply) => {
 		try {
 			const theUser = await req.em.find(User, {});
+			app.log.info(theUser);
 			reply.send(theUser);
 		} catch (err) {
+			app.log.error(err);
 			reply.status(500).send(err);
 		}
 	});
+	
+	// // returns all users for frontend
+	// app.get("/users", async (req, reply) => {
+	// 	try {
+	// 		const theUser = await req.em.find(User, {});
+	// 		reply.send(theUser);
+	// 	} catch (err) {
+	// 		reply.status(500).send(err);
+	// 	}
+	// });
 
 	
 	//HW1 User CRUD:

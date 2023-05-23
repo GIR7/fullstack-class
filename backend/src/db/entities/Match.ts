@@ -1,6 +1,9 @@
-import { Entity, Property, Unique, ManyToOne } from "@mikro-orm/core";import { DoggrBaseEntity } from "./DoggrBaseEntity.js";
+import { Entity, Property, Unique, ManyToOne } from "@mikro-orm/core";
+import { DoggrBaseEntity } from "./DoggrBaseEntity.js";
 import { User } from "./User.js";
+import { SoftDeletable } from "mikro-orm-soft-delete";
 
+@SoftDeletable(() => Match, "deleted_at", () => new Date())
 @Entity()
 export class Match {
 
@@ -18,5 +21,7 @@ export class Match {
 	
 	@Property()
 	created_at = new Date();
-
+	
+	@Property({ nullable: true })
+	deleted_at?: Date;
 }
