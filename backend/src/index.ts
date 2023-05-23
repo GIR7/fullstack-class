@@ -5,9 +5,13 @@ dotenv.config();
 app.listen({ port: Number(process.env.PORT), host: process.env.HOST},
 	(err, address) => {
 		if (err) {
-			console.error(err);
+			app.log.error(err);
 			process.exit(1);
 		}
-		console.log(`Started server at ${address}`);
+		// level: error> warning>info>debug>trace
+		app.log.info(`Started server at ${address}`);
+		console.log(`This is console log in index.ts after "app.log.info()": Started server at ${address} \n which means somehow app.log.info() didn't work?`)
+		app.log.debug("Debug level");
+		app.log.trace("Trace level");
 	}
 );

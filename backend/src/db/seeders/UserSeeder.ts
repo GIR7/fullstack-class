@@ -6,11 +6,12 @@ import bcrypt from "bcrypt";
 
 export class UserSeeder extends Seeder {
 
-  async run(em: EntityManager,/*context:Dictionary*/): Promise<void> {
+  async run(em: EntityManager,context:Dictionary): Promise<void> {
     
     const hashedPw = await bcrypt.hash("password", 10);
     
-    // context.user1=
+    //other seeder can also use(share) these users
+     context.user1=
       em.create(User, {
       name: "Spot",
       email: "email@email.com",
@@ -18,15 +19,14 @@ export class UserSeeder extends Seeder {
       petType: "Dog"
     });
     
-    // context.user2=
+     context.user2=
       em.create(User, {
       name: "Dogbert",
       email: "email2@email.com",
       password: hashedPw,
       petType: "Dog"
     });
-    
-    // context.user3=
+     context.user3=
       em.create(User, {
       name: "Doglord",
       email: "email3@email.com",
@@ -34,7 +34,7 @@ export class UserSeeder extends Seeder {
       petType: "Dog"
     });
     
-    // context.user4=
+    context.user4=
       em.create(User, {
       name: "NotaDog",
       email: "email4@email.com",
