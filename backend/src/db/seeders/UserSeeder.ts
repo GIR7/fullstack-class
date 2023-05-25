@@ -8,6 +8,7 @@ export class UserSeeder extends Seeder {
 
   async run(em: EntityManager,context:Dictionary): Promise<void> {
     
+    //number of salt round: 10
     const hashedPw = await bcrypt.hash("password", 10);
     
     //other seeder can also use(share) these users

@@ -5,6 +5,8 @@ import { FastifyBadWordsPlugin } from "./plugins/badwords.js";
 import {FastifyMikroOrmPlugin} from "./plugins/mikro.js";
 import doggrRoutes from "./routes/routes.js";
 import cors from '@fastify/cors'
+import { AuthPlugin } from "./plugins/auth.js";
+
 
 // 3 different NODE ENV levels that we allow our application to have
 const envToLogger = {
@@ -55,6 +57,6 @@ await app.register(cors, {
 
 //add the routes
 await app.register(doggrRoutes,{});
-
+await app.register(AuthPlugin)
 
 export default app;

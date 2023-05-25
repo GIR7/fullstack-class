@@ -2,6 +2,8 @@ import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { SOFT_DELETABLE_FILTER } from "mikro-orm-soft-delete";
 import { User, UserRole } from "../db/entities/User.js";
 import { ICreateUsersBody, IUpdateUsersBody } from "../types.js";
+import bcrypt from "bcrypt";
+
 
 export function UserRoutesInit(app: FastifyInstance) {
 	// Route that returns all users, soft deleted and not
@@ -24,11 +26,14 @@ export function UserRoutesInit(app: FastifyInstance) {
 	app.post<{ Body: ICreateUsersBody }>("/users", async (req, reply) => {
 		const { name, email, password, petType } = req.body;
 		
+		//fish our pw out and hash it first then put it into our db
+		
+		const hashedPw = await bcrypt.hash(password, 10);
 		try {
 			const newUser = await req.em.create(User, {
 				name,
 				email,
-				password,
+				password:hashedPw,
 				petType,
 				// We'll only create Admins manually!
 				role: UserRole.USER
@@ -96,4 +101,14 @@ export function UserRoutesInit(app: FastifyInstance) {
 			return reply.status(500).send(err);
 		}
 	});
+	
+	/*Login : Auth
+		1) User attempts to create a new account and enters username and password into some User Create page
+		2) Server takes password, salt/hashes/encrypts, store the resulting password in our Users table in the database
+		3) User attempts to login to previously created account and enters username and password into a Login page
+		4) Server retrieves the user from our database, then uses bcrypt's compare function to compare it to the user's entered password
+		5) Server creates JWT token and passes it back to the client.
+		6) Frontend then sends JWT in all subsequent requests, NEVER their actual password again!  Thanks to the magic
+			 of JWTs, we can thusly avoid EVER retrieving the user's password from a database again.
+		 */
 }
