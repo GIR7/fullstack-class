@@ -4,7 +4,9 @@ import ReactDOM from 'react-dom/client'
 import App from './App';
 import '@css/index.css'
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+const rootContainer:HTMLElement = document.getElementById('root') as HTMLElement
+//just booting things up
+ReactDOM.createRoot(rootContainer).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,

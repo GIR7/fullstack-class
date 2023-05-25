@@ -1,3 +1,6 @@
+//stateless components can be in same file
+//state components should have own file
+
 export const Home = ()=>{
 	return(
 		<div>
@@ -15,6 +18,7 @@ export function Subtitle(){
 
 
 // export const Header = ()=>{
+//returns a html
 // 	return (
 // 		<div>
 // 			<h1>Doggr</h1>

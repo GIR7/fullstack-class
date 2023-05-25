@@ -4,7 +4,7 @@ import {FastifySearchHttpMethodPlugin} from "./plugins/http_search.js";
 import { FastifyBadWordsPlugin } from "./plugins/badwords.js";
 import {FastifyMikroOrmPlugin} from "./plugins/mikro.js";
 import doggrRoutes from "./routes/routes.js";
-// import cors from '@fastify/cors'
+import cors from '@fastify/cors'
 
 // 3 different NODE ENV levels that we allow our application to have
 const envToLogger = {
@@ -46,10 +46,12 @@ await app.register(FastifySearchHttpMethodPlugin,{});
 
 await app.register(FastifyBadWordsPlugin);
 
-// //allow cors for frontend to fetch data
-// await app.register(cors, {
-// 	origin: '*'
-// });
+//allow cors for frontend to fetch data
+await app.register(cors, {
+	origin: (origin, cb) => {
+		cb(null, true);
+	}
+});
 
 //add the routes
 await app.register(doggrRoutes,{});

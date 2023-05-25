@@ -1,3 +1,4 @@
+//"session" state
 export type State = {
 	currentProfile: ProfileType
 	likeHistory: Array<ProfileType>,

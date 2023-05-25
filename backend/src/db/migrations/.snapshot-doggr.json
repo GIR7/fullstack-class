@@ -80,6 +80,19 @@
           "primary": false,
           "nullable": false,
           "mappedType": "string"
+        },
+        "role": {
+          "name": "role",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "enumItems": [
+            "Admin",
+            "User"
+          ],
+          "mappedType": "enum"
         }
       },
       "name": "users",
@@ -154,7 +167,7 @@
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": true,
+          "nullable": false,
           "mappedType": "integer"
         },
         "receiver_id": {
@@ -163,7 +176,7 @@
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": true,
+          "nullable": false,
           "mappedType": "integer"
         },
         "message": {
@@ -201,7 +214,6 @@
             "id"
           ],
           "referencedTableName": "public.users",
-          "deleteRule": "cascade",
           "updateRule": "cascade"
         },
         "message_receiver_id_foreign": {
@@ -214,7 +226,6 @@
             "id"
           ],
           "referencedTableName": "public.users",
-          "deleteRule": "cascade",
           "updateRule": "cascade"
         }
       }
