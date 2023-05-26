@@ -12,7 +12,7 @@ export function UserRoutesInit(app: FastifyInstance) {
 	});
 	
 	// Route that returns all users who ARE NOT SOFT DELETED
-	app.get("/users", async (req, reply) => {
+	app.get("/users", { onRequest: [app.auth]}, async (req, reply) => {
 		try {
 			const theUser = await req.em.find(User, {});
 			reply.send(theUser);
@@ -111,4 +111,32 @@ export function UserRoutesInit(app: FastifyInstance) {
 		6) Frontend then sends JWT in all subsequent requests, NEVER their actual password again!  Thanks to the magic
 			 of JWTs, we can thusly avoid EVER retrieving the user's password from a database again.
 		 */
+	
+	app.post<{Body:{email:string,password:string}}>("/login",async(req,res)=>{
+		const {email, password} = req.body;
+		
+		try{
+			const theuser = await req.em.findOneOrFail(User,{email},{strict:true});
+			
+			//compare the pw(plain text) that user entered with the hash salted pw stored  in our db
+			const hashCompare = await bcrypt.compare(password, theuser.password)
+			if(hashCompare){//if its the same pw
+				//generate a jwt token and send it back
+				
+				//get id(prefered) from db
+				const userId = theuser.id;
+				//"store" the id into our token
+				const token = app.jwt.sign({userId});
+				//send back our token, when a user logins, frontend would get this token contains user id
+				res.send( { token });
+			}
+			else{
+				console.log("incorrect password!");
+				res.status(401).send("Wrong password!");
+			}
+		}catch(e){
+			res.status(501).send(e);
+		}
+	})
+	
 }

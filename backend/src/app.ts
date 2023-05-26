@@ -56,7 +56,7 @@ await app.register(cors, {
 });
 
 //add the routes
-await app.register(doggrRoutes,{});
+//order matters
 await app.register(AuthPlugin)
-
+await app.register(doggrRoutes,{});
 export default app;
