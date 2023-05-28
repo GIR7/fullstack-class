@@ -1,6 +1,8 @@
-import {useEffect, useState} from "react";
+import { AuthContext } from "@/App.tsx";
+import {useContext, useEffect, useState} from "react";
 import initialState , {getRandomProfile} from "../initialState"
 import {Profile} from './Profile.tsx'
+import {useAuth} from '../Services/Auth.tsx'
 
 //a match page container
 
@@ -14,6 +16,9 @@ export const Match= ()=>{
 	//a listt of profiles that user liked
 	let [likeHsty, setLikeHsty] = useState(initialState.likeHistory);
 	
+	//
+	const auth = useAuth()
+	// const token = useContext(AuthContext);
 	
 	const onLikeButtonClick=()=>{
 		// this keeps allocations and copies to a minimum
@@ -51,6 +56,7 @@ export const Match= ()=>{
 		<>
 			<div>
 				"MATCH PAGE"
+				<p>User logged in as {auth.token}</p>
 		</div>
 			{profile}
 			</>
