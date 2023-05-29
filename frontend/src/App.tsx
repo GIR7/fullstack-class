@@ -1,10 +1,8 @@
-import { Home } from "@/Components/HomePage.tsx";
-import { Match } from "@/Components/Match.tsx";
+
 import { Link, Route, Routes, Router, BrowserRouter } from "react-router-dom";
 import "@css/App.css";
-import {UsersList} from "@/Components/UsersList.tsx"
-import { AuthContext } from "./Services/Auth.tsx";
 import { AuthProvider } from "./Services/Auth.tsx";
+import { DoggrRouter } from "./DoggrRoutes.tsx";
 
 
 //this is our first react component
@@ -17,20 +15,7 @@ export function App() {
    <BrowserRouter>
      <AuthProvider  >
        <div className="App">
-         <nav>
-           <div className="menu">
-             <Link to="/">Home</Link> ||
-             <Link to="/match">Match</Link> ||
-               <Link to="/login"> Login </Link>
-             {/*<UsersList />*/}
-           </div>
-         </nav>
-    
-         <Routes>
-           <Route path="/" element={<Home />} />
-           <Route path="/match" element={<Match />} />
-             <Route path="/login" element={<Login />} />
-         </Routes>
+         <DoggrRouter />
        </div>
     </AuthProvider>
    </BrowserRouter>
