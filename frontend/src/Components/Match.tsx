@@ -62,7 +62,7 @@ export const Match= ()=>{
 			
 			
 			
-			<p>User logged in as {auth && auth.token && auth.token.token}</p>
+			<p>User logged in as {auth.token.token}</p>
 			{profile}
 		</>
 	)
