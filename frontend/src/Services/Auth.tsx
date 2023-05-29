@@ -20,11 +20,13 @@ export  type AuthContextProps = {
 const updateAxios = async (token:string) =>{
 	//injecting sth(Auth) into request process
 	httpClient.interceptors.request.use(
-		async function config(){
+		async (config) => {
+			// @ts-ignore
 			config.headers = {
-				"Authorization":`Bearer ${token}`,
-				"Accept" : "application/json"
-			}
+				Authorization: `Bearer ${token}`,
+				Accept: "application/json",
+			};
+			
 			return config;
 		},
 		error =>{
@@ -70,6 +72,7 @@ export const AuthProvider = ({children}:any) =>{
 			navigate(-1);//-1:go backwards 1 step
 			return true;
 		} catch (err) {//if someone fails to login
+	
 			console.error("Failed to handle login: ", err);
 			//send them to the login page again
 			navigate("/login");
@@ -119,6 +122,8 @@ function getTokenFromStorage(){
 export async function getLoginTokenFromServer(email,password){
 	console.log("In get login token from server with ",email,password)
 	
+	
+	console.log("before call the backend", httpClient.baseURL)//getting undefine
 	//res is a token from backend
 	let login_result = await httpClient.post("/login",{email,password})
 	
