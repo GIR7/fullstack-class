@@ -24,4 +24,8 @@ export function Logout(){
             console.log("Logout completed successfully")
         })
     });
+    
+    return (
+      <></>
+    )
 }
