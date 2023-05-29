@@ -55,11 +55,13 @@ export const Match= ()=>{
 	return(
 		<>
 			<div>"MATCH PAGE"</div>
-			{/*<p> User logged in as {auth.token}</p>*/}
+			{/*<p> User logged in as {auth.token}</p>*/}{/*<p>User logged in as {auth && auth.token}</p>*/}
 			{/*^^^ Uncaught Error: Objects are not valid as a React child (found: object with keys {token}).
 			 If you meant to render a collection of children, use an array instead.*/}
 			
-			<p>User logged in as {auth && auth.token}</p>
+			
+			<p>User logged in as {auth && auth.token && auth.token.value}</p>
+			
 			{profile}
 		</>
 	)
