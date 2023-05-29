@@ -1,9 +1,10 @@
+import { ProfileType } from "@/DoggrTypes.ts";
 import {useEffect} from "react";
 
-export type ProfileProps = {
-	id: number;
-	imgUri: string;
-	name: string;
+//now it has whatever in profiletype && these two funcs
+export type ProfileProps =
+	ProfileType &
+	{
 	onLikeButtonClick: () => void;
 	onPassButtonClick: () => void;//takes in nothing and returns void
 };
@@ -11,7 +12,7 @@ export type ProfileProps = {
 export function Profile(props:ProfileProps){
 	//pulling the data off of the props
 	//dont have to use all the data in type
-	let {imgUri, name, onLikeButtonClick, onPassButtonClick} = props
+	const {imgUri, name, petType, onLikeButtonClick, onPassButtonClick} = props
 	//give them in to html in return()
 	
 	useEffect(()=>{
@@ -22,6 +23,7 @@ export function Profile(props:ProfileProps){
 		<div>
 			<img src={imgUri} alt = "Profile of pet" />
 			<h2>{name}</h2>
+			<div>Pet type: {petType}</div>
 			<div>
 				{" "}
 				<button onClick={onPassButtonClick}> PASS </button>

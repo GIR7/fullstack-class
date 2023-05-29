@@ -139,4 +139,16 @@ export function UserRoutesInit(app: FastifyInstance) {
 		}
 	})
 	
+	//get the random user profile from backend
+	app.get("/profile", async(req, reply) => {
+		//get the user table
+		const userRepo = req.em.getRepository(User);
+		const totalCount = await userRepo.count();
+		const randomOffset = Math.floor(Math.random() * totalCount);
+		//get the random user from db based on the offset
+		const randomEntity = await userRepo.findOne({}, {offset: randomOffset});
+		//return the user profile
+		reply.send(randomEntity);
+	});
+	
 }

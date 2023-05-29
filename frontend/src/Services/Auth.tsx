@@ -3,13 +3,14 @@ import {httpClient} from "@/Services/HttpClient.tsx"
 import { useNavigate } from "react-router-dom";
 
 //Will put JWT token into this context later, for now is initialize null
-export const AuthContext = createContext<AuthContextProps|null>(null)
+export const AuthContext = createContext<AuthContextProps | null>(null);
 
 //context :make some piece of data available everywhere in react that is below the component you are in
 // will live in everything below the app component
 
-export  type AuthContextProps = {
+export type AuthContextProps = {
 	token: string | null,
+	userId:number,
 	//async function: tell us weather the login is successful or not
 	handleLogin:(email:string,password:string)=> Promise<boolean>,
 	//delete their token
@@ -17,7 +18,7 @@ export  type AuthContextProps = {
 }
 
 //when we have a token, we call this function to inject token into httpclient
-const updateAxios = async (token:string) =>{
+const updateAxios = async (token: string) =>{
 	//injecting sth(Auth) into request process
 	httpClient.interceptors.request.use(
 		async (config) => {
@@ -38,10 +39,14 @@ const updateAxios = async (token:string) =>{
 
 //Check if token is already in local storage before we ask backend
 const initialToken = getTokenFromStorage()
+let initialUserId;
 //if we have the initial token:
-if (initialToken){
+if (!(initialToken == null)) {
+	console.log("Updating axios with token: ", initialToken);
 	// add token to http client
-	await updateAxios(initialToken)
+	await updateAxios(initialToken);
+	//extract/get the userId from the token
+	initialUserId = getUserIdFromToken(initialToken)
 }
 
 /**
@@ -55,6 +60,8 @@ export const AuthProvider = ({children}:any) =>{
 	//set token to whatever in the initial token
 	const[token,setToken] = useState(initialToken)
 
+	const[userId,setUserId] = useState(initialUserId)
+	
 	//if there is NOT a token in local storage, we need call this function
 	const handleLogin = async (email:string,password:string) =>{
 		console.log("In handlelogin with : ",email,password)
@@ -80,8 +87,10 @@ export const AuthProvider = ({children}:any) =>{
 		}
 	}
 	//helper func: save token into 2 places: react app & local storage
-	const saveToken = (thetoken:string)=>{
+	const saveToken = (thetoken)=>{
+		console.log(thetoken);
 		setToken(thetoken);
+		setUserId(getUserIdFromToken(thetoken))
 		localStorage.setItem("token",JSON.stringify(thetoken))
 
 	}
@@ -95,6 +104,7 @@ export const AuthProvider = ({children}:any) =>{
 	return(
 		<AuthContext.Provider value={{
 			token,
+			userId,
 			handleLogin,
 			handleLogout
 		}}>
@@ -112,23 +122,25 @@ export const useAuth =() =>{
 function getTokenFromStorage(){
 	//if we have a key named token and returns a value
 	const tokenString = localStorage.getItem("token");
-	const userToken = JSON.parse(tokenString);
-	//could be token or null
-	return userToken?.token;
-	
+	console.log(tokenString);
+	if ( typeof tokenString === 'undefined' || tokenString === null) {
+		console.log("No token found");
+		return null;
+	}
+	console.log("Token found: ", tokenString);
+	return tokenString;
 }
 
 //A helper function that takes an email and password and then make the req to backend and then get the token from backend
 export async function getLoginTokenFromServer(email,password){
 	console.log("In get login token from server with ",email,password)
 	
-	
-	console.log("before call the backend", httpClient.baseURL)//getting undefine
+	console.log("before call the backend,server url", httpClient.baseURL)//getting undefine
 	//res is a token from backend
-	let login_result = await httpClient.post("/login",{email,password})
-	
-	//returns the token
-	return login_result.data;
+	const login_result = await httpClient.post("/login",{email,password})
+	// console.log(login_result.data); //this is A OBJECT token, not token str
+	//returns the token string!!! NOT the token object
+	return login_result.data.token;
 }
 
 export function getPayloadFromToken(token:string){
@@ -151,4 +163,9 @@ export function getPayloadFromToken(token:string){
 	const payload = JSON.parse(jsonPayload);
 	console.log(payload);
 	return payload;
+}
+
+function getUserIdFromToken(token:string){
+	const payload = getPayloadFromToken(token);
+	return payload.userId;
 }
