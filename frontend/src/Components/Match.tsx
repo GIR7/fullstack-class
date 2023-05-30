@@ -4,6 +4,7 @@ import {useAuth} from '../Services/Auth.tsx'
 import {MatchService} from '../Services/MatchService.tsx'
 import { ProfileType } from "@/DoggrTypes.ts";
 import {getNextProfileFromServer} from '../Services/HttpClient.tsx'
+import { PassService } from "@/Services/PassService.tsx";
 
 //a match page container
 
@@ -44,13 +45,18 @@ export const Match= ()=>{
 	}
 	
 	let onPassButtonClick = ()=>{
-		fetchProfile();
+		PassService.send(auth.userId,currProfile.id)
+			.then(fetchProfile)
+			.catch(e=>{console.error(e);
+				fetchProfile();
+			})
 	}
 	
 	
 	
 	const profile =
 		//passing a props into Profile component
+		//...means pass properties as separate props, such as name={currProfile.name}, age={currProfile.age}
 		<Profile
 			{...currProfile}
 			onLikeButtonClick={onLikeButtonClick}
