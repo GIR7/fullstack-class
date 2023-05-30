@@ -15,9 +15,11 @@ export function DoggrRouter(){
 	
 	//can only return ONE top level component (with its childs)
 	return (
-		<>
-			<nav>
-				<div className="menu">
+		<div className={"doggrfancy"}>
+			<nav className = "bg-blue-900 rounded-b shadow-lg mb-6">
+				<div className="navbar justify-center">
+						<div className={"navbar-center lg:flex"}>
+							<ul className={"menu menu-horizontal"}>
 					<Link to="/">Home</Link> ||
 					<Link to="/match">Match</Link> ||
 					
@@ -27,10 +29,12 @@ export function DoggrRouter(){
 							<Link to="/logout"> Logout </Link>
 							:
 							<>
-							<Link to="/login"> Login </Link>
+							<Link to="/login"> Login </Link> ||
 							<Link to="/create"> Create Account </Link>
 							</>
-					}
+					}</ul>
+						
+						</div>
 					{/*<UsersList />*/}
 				</div>
 			</nav>
@@ -42,6 +46,6 @@ export function DoggrRouter(){
 				<Route path="/login" element={<Login />} />
 				<Route path="/logout" element={<Logout />} />
 			</Routes>
-		</>
+		</div>
 	)
 }

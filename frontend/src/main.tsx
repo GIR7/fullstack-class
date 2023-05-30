@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 // import App from './App.tsx'
 import App from './App';
-import '@css/index.css'
+
 
 const rootContainer:HTMLElement = document.getElementById('root') as HTMLElement
 //just booting things up

@@ -1,9 +1,8 @@
 
 import { Link, Route, Routes, Router, BrowserRouter } from "react-router-dom";
-import "@css/App.css";
 import { AuthProvider } from "./Services/Auth.tsx";
 import { DoggrRouter } from "./DoggrRoutes.tsx";
-
+import "@css/DoggrStyles.css"
 
 //this is our first react component
 export function App() {

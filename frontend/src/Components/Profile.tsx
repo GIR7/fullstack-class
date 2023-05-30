@@ -18,9 +18,9 @@ export function Profile(props:ProfileProps){
 	
 	//give them in to html in return()
 	return (
-		<div>
-			<img src={minioUrl} alt = "Profile of pet" />
-			<h2>{name}</h2>
+		<div className={"flex flex-col items-center rounded-box bg-slate-700 w-4/5 mx-auto"}>
+			<img  className="rounded w-128 h-128 mt-3" src={minioUrl} alt = "Profile of pet" />
+			<h2 className={"text-4xl text-blue-800"}>{name}</h2>
 			<div>Pet type: {petType}</div>
 			<div>
 				{" "}
