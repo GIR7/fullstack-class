@@ -5,6 +5,7 @@ import {Login} from '@/Components/Login.tsx'
 import {Logout} from '@/Components/Logout.tsx'
 import { Link, Route, Routes, Router, BrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from './ProtectedRoute.tsx';
+import { CreateProfile } from './Components/CreateProfile.tsx';
 // import {UsersList} from "@/Components/UsersList.tsx"
 
 //clean up routes in App.tsx
@@ -25,7 +26,10 @@ export function DoggrRouter(){
 							?
 							<Link to="/logout"> Logout </Link>
 							:
+							<>
 							<Link to="/login"> Login </Link>
+							<Link to="/create"> Create Account </Link>
+							</>
 					}
 					{/*<UsersList />*/}
 				</div>
@@ -34,6 +38,7 @@ export function DoggrRouter(){
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/match" element={<ProtectedRoute><Match /></ProtectedRoute>} />
+				<Route path="/create" element={<CreateProfile />} />
 				<Route path="/login" element={<Login />} />
 				<Route path="/logout" element={<Logout />} />
 			</Routes>

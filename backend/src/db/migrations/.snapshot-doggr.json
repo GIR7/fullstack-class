@@ -93,6 +93,15 @@
             "User"
           ],
           "mappedType": "enum"
+        },
+        "img_uri": {
+          "name": "img_uri",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
         }
       },
       "name": "users",

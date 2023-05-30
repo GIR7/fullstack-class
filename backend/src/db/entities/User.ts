@@ -33,6 +33,9 @@ export class User extends DoggrBaseEntity {
 	@Enum(() => UserRole)
 	role!: UserRole; // string enum
 	
+	//put a filename into img_url field
+	@Property({fieldName:'img_uri'})
+	imgUri!:string;
 	
 	//These do NOT exist in the db itself, these fields are derived fields.
 	@OneToMany(

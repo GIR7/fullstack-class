@@ -18,6 +18,7 @@ export class UserSeeder extends Seeder {
       email: "email@email.com",
       password: hashedPw,
       petType: "Dog",
+        imgUri:"dog.ipg",
         role: UserRole.ADMIN,
     });
     
@@ -27,6 +28,7 @@ export class UserSeeder extends Seeder {
       email: "email2@email.com",
       password: hashedPw,
       petType: "Dog",
+        imgUri:"dog.ipg",
         role: UserRole.USER,
     });
      context.user3=
@@ -35,6 +37,7 @@ export class UserSeeder extends Seeder {
       email: "email3@email.com",
       password: hashedPw,
       petType: "Dog",
+        imgUri:"dog.ipg",
         role: UserRole.USER,
     });
     
@@ -44,6 +47,7 @@ export class UserSeeder extends Seeder {
       email: "email4@email.com",
       password: hashedPw,
       petType: "Cat",
+        imgUri:"dog.ipg",
         role: UserRole.USER,
     });
   }

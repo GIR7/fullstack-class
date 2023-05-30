@@ -6,7 +6,7 @@ import {FastifyMikroOrmPlugin} from "./plugins/mikro.js";
 import doggrRoutes from "./routes/routes.js";
 import cors from '@fastify/cors'
 import { AuthPlugin } from "./plugins/auth.js";
-
+import multipart from'@fastify/multipart'
 
 // 3 different NODE ENV levels that we allow our application to have
 const envToLogger = {
@@ -40,6 +40,9 @@ const envToLogger = {
 const app = Fastify({
 	logger: envToLogger[process.env.NODE_ENV]
 });
+
+await app.register(multipart);
+
 //register order matters...
 await app.register(FastifyMikroOrmPlugin, config);
 
